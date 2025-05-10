@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Analiza UTM - MediaExpert Style</title>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Titillium Web', sans-serif;
+      background-color: #0f0f0f;
+      color: #f1f1f1;
+      padding: 40px;
+    }
+
+    h1, h2 {
+      color: #fff200;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 960px;
+      height: 240px;
+      font-size: 16px;
+      padding: 12px;
+      border: 2px solid #fff200;
+      border-radius: 4px;
+      background-color: #1c1c1c;
+      color: #f1f1f1;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 15px;
+      background-color: #fff200;
+      border: none;
+      color: #0f0f0f;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 12px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #e5d300;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      background-color: #1c1c1c;
+      border: 1px solid #333;
+      padding: 16px;
+      max-width: 960px;
+      border-left: 4px solid #fff200;
+      border-radius: 4px;
+      margin-bottom: 30px;
+      overflow-x: auto;
+    }
+
+    .missing {
+      color: #ff4d4d;
+      font-weight: bold;
+    }
+
+    .ok {
+      color: #a0ffa0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔧 Analizator linków i UTM (styl MediaExpert)</h1>
+
+  <textarea id="htmlInput" placeholder="Wklej tutaj kod HTML maila..."></textarea>
+  <br>
+  <button onclick="analyzeHTML()">🔍 Analizuj linki</button>
+
+  <h2>❗ Linki mediaexpert.pl z brakującymi UTM lub złą strukturą:</h2>
+  <pre id="missingLinks"></pre>
+
+  <h2>🔗 Wszystkie linki z analizą UTM:</h2>
+  <pre id="allLinks"></pre>
+
+  <script>
+    function analyzeHTML() {
+      const html = document.getElementById("htmlInput").value;
+      const missingOutput = document.getElementById("missingLinks");
+      const allOutput = document.getElementById("allLinks");
+      missingOutput.textContent = "";
+      allOutput.textContent = "";
+
+      if (!html.trim()) {
+        missingOutput.textContent = "⚠️ Wklej kod HTML maila.";
+        return;
+      }
+
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const links = Array.from(doc.querySelectorAll("a[href]"));
+
+      if (links.length === 0) {
+        missingOutput.textContent = "❌ Nie znaleziono żadnych linków.";
+        return;
+      }
+
+      const requiredUTMs = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
+      const missingList = [];
+      const allList = [];
+
+      links.forEach(link => {
+        const href = link.getAttribute('href');
+        let parsedURL;
+        try {
+          parsedURL = new URL(href);
+        } catch (e) {
+          allList.push(`⚠️ Nieprawidłowy link (błąd URL): ${href}\n`);
+          missingList.push(`⚠️ Nieprawidłowy link (błąd URL): ${href}\n`);
+          return;
+        }
+
+        const url = parsedURL;
+        const hostname = url.hostname.replace(/^www\./, '');
+        const isMediaExpert = hostname.includes("mediaexpert.pl");
+
+        const hasDoubleQuery = url.href.includes('?') && url.href.split('?').length > 2;
+        const missingUTM = requiredUTMs.filter(param => !url.searchParams.has(param));
+        const utmDetails = requiredUTMs.map(param => {
+          const value = url.searchParams.get(param) || 'BRAK';
+          return `   - ${param}: ${value}`;
+        }).join('\n');
+
+        const result = `➡️ ${url.href}\n${utmDetails}\n`;
+
+        if ((isMediaExpert && missingUTM.length > 0) || hasDoubleQuery) {
+          missingList.push(result);
+        }
+
+        allList.push(result);
+      });
+
+      if (missingList.length === 0) {
+        missingOutput.textContent = "✅ Wszystkie linki mediaexpert.pl mają kompletne UTM i poprawną strukturę.";
+      } else {
+        missingOutput.innerHTML = '<span class="missing">' + missingList.join('\n') + '</span>';
+      }
+
+      allOutput.textContent = allList.join('\n');
+    }
+  </script>
+
+</body>
+</html>
