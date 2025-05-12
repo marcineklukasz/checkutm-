@@ -1,603 +1,161 @@
-<html lang="pl"><head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<style type="text/css">
-			body {background:#ffffff;}
-			a {text-decoration:none;}
-			
-			@media all and (min-width:650px) {
-				.sg_fs25 {font-size:25px;line-height:36px;}
-				.sg_fs19 {font-size:19px;line-height:28px;}
-				.sg_fs16 {font-size:16px;line-height:22px;}
-			}
-			
-			@media all and (max-width:649px) {
-				.sg_hide {display:none;}
-				.logo {max-width:120px!important;}
-			}
-		
-		</style>
-	</head>
-	<body>
-		
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Analiza UTM </title>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Titillium Web', sans-serif;
+      background-color: #0f0f0f;
+      color: #f1f1f1;
+      padding: 40px;
+    }
 
+    h1, h2 {
+      color: #fff200;
+      margin-bottom: 10px;
+    }
 
+    textarea {
+      width: 100%;
+      max-width: 960px;
+      height: 240px;
+      font-size: 16px;
+      padding: 12px;
+      border: 2px solid #fff200;
+      border-radius: 4px;
+      background-color: #1c1c1c;
+      color: #f1f1f1;
+      resize: vertical;
+    }
 
+    button {
+      margin-top: 15px;
+      background-color: #fff200;
+      border: none;
+      color: #0f0f0f;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 12px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
 
+    button:hover {
+      background-color: #e5d300;
+    }
 
+    pre {
+      white-space: pre-wrap;
+      background-color: #1c1c1c;
+      border: 1px solid #333;
+      padding: 16px;
+      max-width: 960px;
+      border-left: 4px solid #fff200;
+      border-radius: 4px;
+      margin-bottom: 30px;
+      overflow-x: auto;
+    }
 
+    .missing {
+      color: #ff4d4d;
+      font-weight: bold;
+    }
 
+    .ok {
+      color: #a0ffa0;
+    }
+  </style>
+</head>
+<body>
 
+  <h1>🔧 Analizator linków i UTM </h1>
 
+  <textarea id="htmlInput" placeholder="Wklej tutaj kod HTML maila..."></textarea>
+  <br>
+  <button onclick="analyzeHTML()">🔍 Analizuj linki</button>
 
+  <h2>❗ Linki mediaexpert.pl z brakującymi UTM lub złą strukturą:</h2>
+  <pre id="missingLinks"></pre>
 
-    
-    
-    
-    
-    
-    
-	
-	
-	
-	 
-	
-		
-		
-	
-	<meta charset="UTF-8">
-	<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;max-width:650px;text-align:center;font-family:arial;font-weight:normal;margin:0 auto;">
-		<tbody><tr>
-			<td>
-				<div style="display:none;font-size:1px;color:#000000;max-height:0px;overflow:hidden;line-height:1px;">
-					Sprawdź »
-					‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;<wbr> 
-					‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;
-					‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;<wbr> 
-					‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;
-					‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;<wbr> 
-					‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;
-					‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;<wbr> 
-					‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;
-					‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;<wbr> 
-					‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td height="7" style="font-size:0px;line-height:0px;">
-				&nbsp;
-			</td>
-		</tr>
-		<tr>
-			<td style="text-align:right;font-size:10px;">
-				<a href="?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="color:#000001;text-decoration:none;" target="_blank">Otwórz w przeglądarce &gt;</a>
-			</td>
-		</tr>
-		<tr>
-			<td height="7" style="font-size:0px;line-height:0px;">
-				&nbsp;
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;max-width:200px;text-align:center;font-family:arial;font-weight:bold;margin:0 auto;">
-					<tbody><tr>
-						<td>
-							<a href="https://www.mediaexpert.pl/?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;?snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration: none;" target="_blank"><img class="logo" src="https://upload.snrcdn.net/4abaf88f166f7e2fdc00c33822155eb2677ed6df/default/origin/257680ed542240cdb535dab0721f9aa0.png" alt="mediaexpert" border="0" style="display:inline-block;width:100%;max-width:200px;height:auto;font-size:19px;color:#ffffff;background-color:#000000;"></a>
-						</td>
-					</tr>
-				</tbody></table>
-			</td>
-		</tr>
-		<tr>
-			<td height="10" style="font-size:0px;line-height:0px;">
-				&nbsp;
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;text-align:center;font-family:arial;font-weight:bold;">
-					<tbody><tr>
-						<td><a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2679/images/top.jpg" alt="KOŃCZĄ CI SIĘ" border="0" style="display:block;width:100%;max-width:650px;height:auto;font-size:28px;color:#000000;"></a></td>
-					</tr>
-					<tr>
-						<td><a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2679/images/topb.png" alt="SUPLEMENTY?" border="0" style="display:block;width:100%;max-width:650px;height:auto;font-size:36px;color:#0d4de4;"></a></td>
-					</tr>
-					<tr><td height="14" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr class="sg_hide"><td height="2" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr>
-						<td>
-							<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:92%;text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:20px;line-height:29px;margin:0 auto;">
-								<tbody><tr>
-									<td class="sg_fs25">
-										<!--[if (gte mso 9)|(IE)] >
-										<table align="center" border="0" cellpadding="0" cellspacing="0" style="text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:25px;line-height:36px;">
-											<tr>
-												<td>
-										<![endif]-->
-										<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;color:#333333;" target="_blank">Kup suplementy wysokiej jakości i&nbsp;wspomóż organizm podczas budowania wymarzonej sylwetki.</a>
-										<!--[if (gte mso 9)|(IE)] >
-												</td>
-											</tr>
-										</table>
-										<![endif]-->
-									</td>
-								</tr>
-							</tbody></table>
-						</td>
-					</tr>
-					<tr><td height="21" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr class="sg_hide"><td height="20" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr>
-						<td>
-							<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:92%;max-width:590px;text-align:center;margin:0 auto;">
-								<tbody><tr>
-									<td style="width:47.46%;">
-										<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;text-align:center;">
-											<tbody><tr>
-												<td>
-													<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/odzywki?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2679/images/kat1.png" alt="" border="0" width="280" style="display:block;width:100%;max-width:280px;height:auto;" loading="lazy"></a>
-												</td>
-											</tr>
-											<tr><td height="3" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr class="sg_hide"><td height="7" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr>
-												<td height="52" style="height:52px;">
-													<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:96%;text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:15px;line-height:20px;margin:0 auto;">
-														<tbody><tr>
-															<td class="sg_fs19">
-																<!--[if (gte mso 9)|(IE)] >
-																<table align="center" border="0" cellpadding="0" cellspacing="0" style="text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:19px;line-height:28px;">
-																	<tr>
-																		<td>
-																<![endif]-->
-																<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/odzywki?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;color:#333333;" target="_blank">Wzrost masy mięśniowej</a>
-																<!--[if (gte mso 9)|(IE)] >
-																		</td>
-																	</tr>
-																</table>
-																<![endif]-->
-															</td>
-														</tr>
-													</tbody></table>
-												</td>
-											</tr>
-											<tr><td height="5" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr class="sg_hide"><td height="6" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr>
-												<td>
-													<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:84%;max-width:170px;text-align:center;font-family:roboto, arial;font-weight:normal;font-size:18px;line-height:21px;margin:0 auto;">
-														<tbody><tr>
-															<td height="50" style="height:50px;background-color:#ffed00;border-radius:4px;">
-																<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/odzywki?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;color:#000000;display:block;padding:13px 0;" target="_blank">SPRAWDŹ</a>
-															</td>
-														</tr>
-													</tbody></table>
-												</td>
-											</tr>
-										</tbody></table>
-									</td>
-									<td style="font-size:0px;line-height:0px;">&nbsp;</td>
-									<td style="width:47.46%;">
-										<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;text-align:center;">
-											<tbody><tr>
-												<td>
-													<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/przedtreningowka?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2679/images/kat2.png" alt="" border="0" width="280" style="display:block;width:100%;max-width:280px;height:auto;" loading="lazy"></a>
-												</td>
-											</tr>
-											<tr><td height="3" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr class="sg_hide"><td height="7" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr>
-												<td height="52" style="height:52px;">
-													<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:96%;text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:15px;line-height:20px;margin:0 auto;">
-														<tbody><tr>
-															<td class="sg_fs19">
-																<!--[if (gte mso 9)|(IE)] >
-																<table align="center" border="0" cellpadding="0" cellspacing="0" style="text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:19px;line-height:28px;">
-																	<tr>
-																		<td>
-																<![endif]-->
-																<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/przedtreningowka?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;color:#333333;" target="_blank">Dawka energii</a>
-																<!--[if (gte mso 9)|(IE)] >
-																		</td>
-																	</tr>
-																</table>
-																<![endif]-->
-															</td>
-														</tr>
-													</tbody></table>
-												</td>
-											</tr>
-											<tr><td height="5" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr class="sg_hide"><td height="6" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr>
-												<td>
-													<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:84%;max-width:170px;text-align:center;font-family:roboto, arial;font-weight:normal;font-size:18px;line-height:21px;margin:0 auto;">
-														<tbody><tr>
-															<td height="50" style="height:50px;background-color:#ffed00;border-radius:4px;">
-																<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/przedtreningowka?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;color:#000000;display:block;padding:13px 0;" target="_blank">SPRAWDŹ</a>
-															</td>
-														</tr>
-													</tbody></table>
-												</td>
-											</tr>
-										</tbody></table>
-									</td>
-								</tr>
-								<tr>
-									<td height="20" style="font-size:0px;line-height:0px;">&nbsp;</td>
-									<td style="font-size:0px;line-height:0px;">&nbsp;</td>
-									<td style="font-size:0px;line-height:0px;">&nbsp;</td>
-								</tr>
-								<tr class="sg_hide">
-									<td height="10" style="font-size:0px;line-height:0px;">&nbsp;</td>
-									<td style="font-size:0px;line-height:0px;">&nbsp;</td>
-									<td style="font-size:0px;line-height:0px;">&nbsp;</td>
-								</tr>
-								<tr>
-									<td>
-										<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;text-align:center;">
-											<tbody><tr>
-												<td>
-													<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/bidony-i-shakery?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2679/images/kat3.png" alt="" border="0" width="280" style="display:block;width:100%;max-width:280px;height:auto;" loading="lazy"></a>
-												</td>
-											</tr>
-											<tr><td height="3" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr class="sg_hide"><td height="7" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr>
-												<td height="52" style="height:52px;">
-													<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:96%;text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:15px;line-height:20px;margin:0 auto;">
-														<tbody><tr>
-															<td class="sg_fs19">
-																<!--[if (gte mso 9)|(IE)] >
-																<table align="center" border="0" cellpadding="0" cellspacing="0" style="text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:19px;line-height:28px;">
-																	<tr>
-																		<td>
-																<![endif]-->
-																<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/bidony-i-shakery?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;color:#333333;" target="_blank">Akcesoria</a>
-																<!--[if (gte mso 9)|(IE)] >
-																		</td>
-																	</tr>
-																</table>
-																<![endif]-->
-															</td>
-														</tr>
-													</tbody></table>
-												</td>
-											</tr>
-											<tr><td height="5" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr class="sg_hide"><td height="6" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr>
-												<td>
-													<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:84%;max-width:170px;text-align:center;font-family:roboto, arial;font-weight:normal;font-size:18px;line-height:21px;margin:0 auto;">
-														<tbody><tr>
-															<td height="50" style="height:50px;background-color:#ffed00;border-radius:4px;">
-																<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/bidony-i-shakery?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;color:#000000;display:block;padding:13px 0;" target="_blank">SPRAWDŹ</a>
-															</td>
-														</tr>
-													</tbody></table>
-												</td>
-											</tr>
-										</tbody></table>
-									</td>
-									<td style="font-size:0px;line-height:0px;">&nbsp;</td>
-									<td>
-										<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;text-align:center;">
-											<tbody><tr>
-												<td>
-													<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/witaminy-i-mineraly?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2679/images/kat4.png" alt="" border="0" width="280" style="display:block;width:100%;max-width:280px;height:auto;" loading="lazy"></a>
-												</td>
-											</tr>
-											<tr><td height="3" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr class="sg_hide"><td height="7" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr>
-												<td height="52" style="height:52px;">
-													<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:96%;text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:15px;line-height:20px;margin:0 auto;">
-														<tbody><tr>
-															<td class="sg_fs19">
-																<!--[if (gte mso 9)|(IE)] >
-																<table align="center" border="0" cellpadding="0" cellspacing="0" style="text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:19px;line-height:28px;">
-																	<tr>
-																		<td>
-																<![endif]-->
-																<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/witaminy-i-mineraly?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;color:#333333;" target="_blank">Witaminy oraz&nbsp;minerały</a>
-																<!--[if (gte mso 9)|(IE)] >
-																		</td>
-																	</tr>
-																</table>
-																<![endif]-->
-															</td>
-														</tr>
-													</tbody></table>
-												</td>
-											</tr>
-											<tr><td height="5" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr class="sg_hide"><td height="6" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-											<tr>
-												<td>
-													<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:84%;max-width:170px;text-align:center;font-family:roboto, arial;font-weight:normal;font-size:18px;line-height:21px;margin:0 auto;">
-														<tbody><tr>
-															<td height="50" style="height:50px;background-color:#ffed00;border-radius:4px;">
-																<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie/witaminy-i-mineraly?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;color:#000000;display:block;padding:13px 0;" target="_blank">SPRAWDŹ</a>
-															</td>
-														</tr>
-													</tbody></table>
-												</td>
-											</tr>
-										</tbody></table>
-									</td>
-								</tr>
-							</tbody></table>
-						</td>
-					</tr>
-					<tr><td height="40" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr class="sg_hide"><td height="10" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-				</tbody></table>
-			</td>
-		</tr>
-		<tr>
-			<td style="background-color:#f7f7f7;">
-				<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;text-align:center;font-family:arial;font-weight:bold;">
-					<tbody><tr><td height="12" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr class="sg_hide"><td height="5" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr>
-						<td>
-							<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:92%;max-width:590px;text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:20px;line-height:29px;margin:0 auto;">
-								<tbody><tr>
-									<td class="sg_fs25">
-										<!--[if (gte mso 9)|(IE)] >
-										<table align="center" border="0" cellpadding="0" cellspacing="0" style="text-align:center;font-family:roboto, helvetica;font-weight:bold;font-size:25px;line-height:36px;">
-											<tr>
-												<td>
-										<![endif]-->
-										<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;color:#333333;" target="_blank">Zobacz pełną ofertę suplementów wysokiej jakości:</a>
-										<!--[if (gte mso 9)|(IE)] >
-												</td>
-											</tr>
-										</table>
-										<![endif]-->
-									</td>
-								</tr>
-							</tbody></table>
-						</td>
-					</tr>
-					<tr><td height="16" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr class="sg_hide"><td height="5" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr>
-						<td><a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2679/images/suplementy.jpg" alt="Suplemenety i odżywki" border="0" style="display:block;width:100%;max-width:650px;height:auto;font-size:30px;color:#0d4de4;"></a></td>
-					</tr>
-					<tr><td height="20" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr class="sg_hide"><td height="10" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr>
-						<td>
-							<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:42%;max-width:170px;text-align:center;font-family:roboto, arial;font-weight:normal;font-size:18px;line-height:21px;margin:0 auto;">
-								<tbody><tr>
-									<td height="50" style="height:50px;background-color:#ffed00;border-radius:4px;">
-										<a href="https://www.mediaexpert.pl/sport-i-rekreacja/suplementy-na-silownie?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B&amp;snrs_cp=a4656ff9-081f-450f-b5f7-6b37d0cea125&amp;snrs_var=1" style="text-decoration:none;color:#000000;display:block;padding:13px 0;" target="_blank">SPRAWDŹ</a>
-									</td>
-								</tr>
-							</tbody></table>
-						</td>
-					</tr>
-					<tr><td height="40" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr class="sg_hide"><td height="10" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-				</tbody></table>
-			</td>
-		</tr>
-		<tr>
-			<td height="35" style="font-size:0px;line-height:0px;">
-				&nbsp;
-			</td>
-		</tr>
-		<tr>
-			<td>
-				   
-					<a href="https://www.mediaexpert.pl/lp,przeceny-xxl?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2025.05.09_Przeceny-xxl%7C%7C2023.11.09_Odzywki&amp;utm_content=B" style="text-decoration:none;" target="_blank">
-						<img src="https://upload.snrcdn.net/4abaf88f166f7e2fdc00c33822155eb2677ed6df/default/origin/59896782f7ad46d9abc071348ece9727.jpg" border="0" width="650" style="display:block;width:100%;max-width:650px;height:auto;">
-					</a>
-				
-			</td>
-		</tr>
-		<tr>
-			<td height="20" style="font-size:0px;line-height:0px;">
-				&nbsp;
-			</td>
-		</tr>
-		<tr>
-			<td height="5" style="font-size:0px;line-height:0px;">
-				&nbsp;
-			</td>
-		</tr>
-		
-	        <tr><td style="background-color:#ffffff;">
-<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:100%;max-width:650px;text-align:center;font-family:arial;color:#555555;margin:0 auto;">
-	<tbody><tr>
-		<td style="font-size:0px;">
-			<!--[if (gte mso 9)|(IE)] ><table align="center" border="0" cellpadding="0" cellspacing="0" width="588" style="margin:0 auto;"><tr><td width="98"><![endif]-->
-			<div style="width:32.5%;max-width:98px;display:inline-block;vertical-align:middle;">
-				<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:90%;text-align:center;font-family:arial;font-weight:normal;font-size:13px;line-height:18px;margin:0 auto;">
-					<tbody><tr><td height="25" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr>
-						<td>
-							<table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
-								<tbody><tr><td width="46" style="background-image:url(https://www.mediaexpert.pl/lp/mailing/2816/images/bgs.png);background-repeat:no-repeat;"><a href="https://www.mediaexpert.pl/lp,zakupy-na-raty?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2816/images/r0.png" alt="" border="0" style="display:block;" loading="lazy"></a></td></tr>
-							</tbody></table>
-						</td>
-					</tr>
-					<tr><td height="1" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr><td><a href="https://www.mediaexpert.pl/lp,zakupy-na-raty?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="text-decoration:none;color:#555555;" target="_blank">Raty 0%<br>RRSO 0%</a></td></tr>
-				</tbody></table>
-			</div>
-			<!--[if (gte mso 9)|(IE)] ></td><td width="98"><![endif]-->
-			<div style="width:32.5%;max-width:98px;display:inline-block;vertical-align:middle;">
-				<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:90%;text-align:center;font-family:arial;font-weight:normal;font-size:13px;line-height:18px;margin:0 auto;">
-					<tbody><tr><td height="25" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr>
-						<td>
-							<table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
-								<tbody><tr><td width="46" style="background-image:url(https://www.mediaexpert.pl/lp/mailing/2816/images/bgs.png);background-repeat:no-repeat;"><a href="https://www.mediaexpert.pl/lp,darmowa-dostawa?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2816/images/dd.png" alt="" border="0" style="display:block;" loading="lazy"></a></td></tr>
-							</tbody></table>
-						</td>
-					</tr>
-					<tr><td height="1" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr><td><a href="https://www.mediaexpert.pl/lp,darmowa-dostawa?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="text-decoration:none;color:#555555;" target="_blank">Darmowa<br>dostawa</a></td></tr>
-				</tbody></table>
-			</div>
-			<!--[if (gte mso 9)|(IE)] ></td><td width="98"><![endif]-->
-			<div style="width:32.5%;max-width:98px;display:inline-block;vertical-align:middle;">
-				<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:90%;text-align:center;font-family:arial;font-weight:normal;font-size:13px;line-height:18px;margin:0 auto;">
-					<tbody><tr><td height="25" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr>
-						<td>
-							<table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
-								<tbody><tr><td width="46" style="background-image:url(https://www.mediaexpert.pl/lp/mailing/2816/images/bgs.png);background-repeat:no-repeat;"><a href="https://www.mediaexpert.pl/lp,darmowa-dostawa?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B#darmowa-dostawa-do-sklepu" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2816/images/os.png" alt="" border="0" style="display:block;" loading="lazy"></a></td></tr>
-							</tbody></table>
-						</td>
-					</tr>
-					<tr><td height="1" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr><td><a href="https://www.mediaexpert.pl/lp,darmowa-dostawa?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B#darmowa-dostawa-do-sklepu" style="text-decoration:none;color:#555555;" target="_blank">Odbiór<br>w sklepie</a></td></tr>
-				</tbody></table>
-			</div>
-			<!--[if (gte mso 9)|(IE)] ></td><td width="98"><![endif]-->
-			<div style="width:32.5%;max-width:98px;display:inline-block;vertical-align:middle;">
-				<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:90%;text-align:center;font-family:arial;font-weight:normal;font-size:13px;line-height:18px;margin:0 auto;">
-					<tbody><tr><td height="25" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr>
-						<td>
-							<table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
-								<tbody><tr><td width="46" style="background-image:url(https://www.mediaexpert.pl/lp/mailing/2816/images/bgs.png);background-repeat:no-repeat;"><a href="https://www.mediaexpert.pl/lp,darmowa-dostawa?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B#dostawa-kurierem" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2816/images/dj.png" alt="" border="0" style="display:block;" loading="lazy"></a></td></tr>
-							</tbody></table>
-						</td>
-					</tr>
-					<tr><td height="1" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr><td><a href="https://www.mediaexpert.pl/lp,darmowa-dostawa?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B#dostawa-kurierem" style="text-decoration:none;color:#555555;" target="_blank">Dostawa<br>jutro</a></td></tr>
-				</tbody></table>
-			</div>
-			<!--[if (gte mso 9)|(IE)] ></td><td width="98"><![endif]-->
-			<div style="width:32.5%;max-width:98px;display:inline-block;vertical-align:middle;">
-				<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:90%;text-align:center;font-family:arial;font-weight:normal;font-size:13px;line-height:18px;margin:0 auto;">
-					<tbody><tr><td height="25" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr>
-						<td>
-							<table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
-								<tbody><tr><td width="46" style="background-image:url(https://www.mediaexpert.pl/lp/mailing/2816/images/bgs.png);background-repeat:no-repeat;"><a href="https://www.mediaexpert.pl/lp,darmowa-dostawa?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B#darmowa-dostawa-do-sklepu" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2816/images/og.png" alt="" border="0" style="display:block;" loading="lazy"></a></td></tr>
-							</tbody></table>
-						</td>
-					</tr>
-					<tr><td height="1" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr><td><a href="https://www.mediaexpert.pl/lp,darmowa-dostawa?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B#darmowa-dostawa-do-sklepu" style="text-decoration:none;color:#555555;" target="_blank">Odbiór<br>za godzinę</a></td></tr>
-				</tbody></table>
-			</div>
-			<!--[if (gte mso 9)|(IE)] ></td><td width="98"><![endif]-->
-			<div style="width:32.5%;max-width:98px;display:inline-block;vertical-align:middle;">
-				<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:90%;text-align:center;font-family:arial;font-weight:normal;font-size:13px;line-height:18px;margin:0 auto;">
-					<tbody><tr><td height="25" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr>
-						<td>
-							<table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
-								<tbody><tr><td width="46" style="background-image:url(https://www.mediaexpert.pl/lp/mailing/2816/images/bgs.png);background-repeat:no-repeat;"><a href="https://www.mediaexpert.pl/lp,program-partnerski?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2816/images/pp.png" alt="" border="0" style="display:block;" loading="lazy"></a></td></tr>
-							</tbody></table>
-						</td>
-					</tr>
-					<tr><td height="1" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-					<tr><td><a href="https://www.mediaexpert.pl/lp,program-partnerski?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="text-decoration:none;color:#555555;" target="_blank">Program<br>partnerski</a></td></tr>
-				</tbody></table>
-			</div>
-			<!--[if (gte mso 9)|(IE)] ></td></tr></table><![endif]-->
-		</td>
-	</tr>
-	<tr><td height="30" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-	<tr>
-		<td>
-			<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:92%;text-align:center;font-family:arial;font-weight:bold;font-size:20px;line-height:29px;margin:0 auto;">
-				<tbody><tr><td height="23" style="border-top:1px solid #eeeeee;font-size:0px;line-height:0px;">&nbsp;</td></tr>
-				<tr><td><a href="https://www.mediaexpert.pl/lp,aplikacja?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="text-decoration:none;color:#000000;" target="_blank">Kupuj jeszcze taniej w&nbsp;aplikacji!</a></td></tr>
-			</tbody></table>
-		</td>
-	</tr>
-	<tr><td height="2" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-	<tr style="font-size:16px;line-height:22px;"><td><a href="https://www.mediaexpert.pl/lp,aplikacja?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="text-decoration:none;color:#000000;" target="_blank">Pobierz teraz</a></td></tr>
-	<tr><td height="10" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-	<tr>
-		<td>
-			<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:259px;margin:0 auto;">
-				<tbody><tr>
-					<td width="123"><a href="https://www.mediaexpert.pl/lp,aplikacja?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2816/images/aa.png" alt="" border="0" style="display:block;" loading="lazy"></a></td>
-					<td width="13" style="font-size:0px;line-height:0px;">&nbsp;</td>
-					<td width="123"><a href="https://www.mediaexpert.pl/lp,aplikacja?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2816/images/ag.png" alt="" border="0" style="display:block;" loading="lazy"></a></td>
-				</tr>
-			</tbody></table>
-		</td>
-	</tr>
-	<tr><td height="33" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-	<tr>
-		<td>
-			<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:92%;text-align:center;font-family:arial;font-weight:bold;color:#333333;font-size:20px;line-height:29px;margin:0 auto;">
-				<tbody><tr><td height="23" style="border-top:1px solid #eeeeee;font-size:0px;line-height:0px;">&nbsp;</td></tr>
-				<tr><td>Znajdź nas na:</td></tr>
-			</tbody></table>
-		</td>
-	</tr>
-	<tr><td height="7" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-	<tr>
-		<td>
-			<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:176px;text-align:center;font-family:arial;font-weight:bold;margin:0 auto;">
-				<tbody><tr>
-					<td width="48"><a href="https://www.facebook.com/Mediaexpert" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2816/images/fb.png" alt="f" border="0" style="display:block;color:#333333;font-size:20px;" loading="lazy"></a></td>
-					<td width="16" style="font-size:0px;line-height:0px;">&nbsp;</td>
-					<td width="48"><a href="https://www.youtube.com/user/wwwMediaExpertPL" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2816/images/yt.png" alt="yt" border="0" style="display:block;color:#333333;font-size:20px;" loading="lazy"></a></td>
-					<td width="16" style="font-size:0px;line-height:0px;">&nbsp;</td>
-					<td width="48"><a href="https://www.instagram.com/mediaexpert.pl/?hl=pl" style="text-decoration:none;" target="_blank"><img src="https://www.mediaexpert.pl/lp/mailing/2816/images/ig.png" alt="ig" border="0" style="display:block;color:#333333;font-size:20px;" loading="lazy"></a></td>
-				</tr>
-			</tbody></table>
-		</td>
-	</tr>
-	<tr><td height="28" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-	<tr>
-		<td style="font-size:0px;">
-			<!--[if (gte mso 9)|(IE)] ><table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;"><tr><td><![endif]-->
-			<div style="display:inline-block;vertical-align:middle;">
-				<table align="center" border="0" cellpadding="0" cellspacing="0" style="text-align:center;font-family:arial;font-weight:normal;font-size:13px;line-height:18px;margin:0 auto;">
-					<tbody><tr>
-						<td width="20" style="font-size:0px;line-height:0px;">&nbsp;</td>
-						<td><a href="tel:+48756756756" style="text-decoration:none;color:#555555;" target="_blank">Zadzwoń do nas: <b>756 756 756</b></a></td>
-						<td width="20" style="font-size:0px;line-height:0px;">&nbsp;</td>
-					</tr>
-				</tbody></table>
-			</div>
-			<!--[if (gte mso 9)|(IE)] ></td><td><![endif]-->
-			<div style="display:inline-block;vertical-align:middle;">
-				<table align="center" border="0" cellpadding="0" cellspacing="0" style="text-align:center;font-family:arial;font-weight:normal;font-size:13px;line-height:18px;margin:0 auto;">
-					<tbody><tr>
-						<td width="20" style="font-size:0px;line-height:0px;">&nbsp;</td>
-						<td><a href="mailto:esklep@mediaexpert.pl" style="text-decoration:none;color:#555555;" target="_blank">Napisz do nas: <b>esklep@mediaexpert.pl</b></a></td>
-						<td width="20" style="font-size:0px;line-height:0px;">&nbsp;</td>
-					</tr>
-				</tbody></table>
-			</div>
-			<!--[if (gte mso 9)|(IE)] ></td><tr></table><![endif]-->
-		</td>
-	</tr>
-	<tr><td height="28" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-	<tr>
-		<td>
-			<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:92%;max-width:540px;text-align:center;font-family:arial;color:#555555;font-size:11px;line-height:18px;margin:0 auto;">
-				<tbody><tr>
-					<td>
-						TERG S.A. Ul. Za Dworcem 1D, 77-400 Złotów KRS 0000427063, NIP 767-10-04-218, REGON 570217011<br>
-Jeżeli chcesz dowiedzieć się, jak&nbsp;przetwarzamy Twoje dane osobowe w&nbsp;związku z&nbsp;korespondencją e‑mail,&nbsp;odwiedź naszą <a href="https://www.mediaexpert.pl/lp,stopka-email-zasady-przetwarzania?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="color:#555555;text-decoration:none;" target="_blank">stronę</a>.<br>
-<br>
-Ta wiadomość została wysłana automatycznie – prosimy na&nbsp;nią nie&nbsp;odpowiadać.<br>
-Jeśli nie chcesz w&nbsp;przyszłości otrzymywać podobnych wiadomości kliknij <a href="https://www.mediaexpert.pl/lp,rezygnacja?utm_source=MA&amp;utm_medium=e-mail&amp;utm_campaign=2023.11.09_Odzywki&amp;utm_content=B" style="color:#555555;text-decoration:none;" target="_blank">tutaj</a>.
-					</td>
-				</tr>
-			</tbody></table>
-		</td>
-	</tr>
-	<tr><td height="30" style="font-size:0px;line-height:0px;">&nbsp;</td></tr>
-</tbody></table>
-</td></tr>
-	    
-	</tbody></table>
-	
-</body></html>
+  <h2>🔗 Wszystkie linki z analizą UTM:</h2>
+  <pre id="allLinks"></pre>
+
+  <script>
+    function analyzeHTML() {
+      const html = document.getElementById("htmlInput").value;
+      const missingOutput = document.getElementById("missingLinks");
+      const allOutput = document.getElementById("allLinks");
+      missingOutput.textContent = "";
+      allOutput.textContent = "";
+
+      if (!html.trim()) {
+        missingOutput.textContent = "⚠️ Wklej kod HTML maila.";
+        return;
+      }
+
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const links = Array.from(doc.querySelectorAll("a[href]"));
+
+      if (links.length === 0) {
+        missingOutput.textContent = "❌ Nie znaleziono żadnych linków.";
+        return;
+      }
+
+      const requiredUTMs = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
+      const missingList = [];
+      const allList = [];
+
+      links.forEach(link => {
+        const linkText = link.textContent.trim();
+
+        // Pomiń linki zawierające tekst "Otwórz w przeglądarce"
+        if (linkText.includes("Otwórz w przeglądarce")) {
+          return;
+        }
+
+        const href = link.getAttribute('href');
+        let parsedURL;
+        try {
+          parsedURL = new URL(href);
+        } catch (e) {
+          allList.push(`⚠️ Nieprawidłowy link (błąd URL): ${href}\n`);
+          missingList.push(`⚠️ Nieprawidłowy link (błąd URL): ${href}\n`);
+          return;
+        }
+
+        const url = parsedURL;
+        const hostname = url.hostname.replace(/^www\./, '');
+        const isMediaExpert = hostname.includes("mediaexpert.pl");
+
+        const hasDoubleQuery = url.href.includes('?') && url.href.split('?').length > 2;
+        const missingUTM = requiredUTMs.filter(param => !url.searchParams.has(param));
+        const utmDetails = requiredUTMs.map(param => {
+          const value = url.searchParams.get(param) || 'BRAK';
+          return `   - ${param}: ${value}`;
+        }).join('\n');
+
+        const result = `➡️ ${url.href}\n${utmDetails}\n`;
+
+        if ((isMediaExpert && missingUTM.length > 0) || hasDoubleQuery) {
+          missingList.push(result);
+        }
+
+        allList.push(result);
+      });
+
+      if (missingList.length === 0) {
+        missingOutput.textContent = "✅ Wszystkie linki mediaexpert.pl mają kompletne UTM i poprawną strukturę.";
+      } else {
+        missingOutput.innerHTML = '<span class="missing">' + missingList.join('\n') + '</span>';
+      }
+
+      allOutput.textContent = allList.join('\n');
+    }
+  </script>
+
+</body>
+</html>
